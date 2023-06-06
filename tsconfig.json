@@ -1,0 +1,15 @@
+{
+  "extends": "ts-config-single-spa",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "declarationDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["*"]
+    }
+  },
+  "typeRoots": ["src/typings", "node_modules/@types"],
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test*"]
+}
