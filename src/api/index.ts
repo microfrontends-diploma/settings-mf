@@ -3,7 +3,7 @@ import axios from "axios";
 
 // FIXME: эта штука создается где?
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3030",
+  baseURL: "http://94.250.250.29:3030",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

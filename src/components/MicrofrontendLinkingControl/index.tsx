@@ -15,7 +15,8 @@ const MicrofrontendLinkingControl = ({
   onChange,
   onDelete,
 }: MicrofrontendLinkingControlProps) => {
-  const targetMicroserviceDisabled = availableMicroservicesToLink.find((mf) => mf.name === currentMicrofrontend.name)?.status === "inactive";
+  const targetMicroserviceDisabled =
+    availableMicroservicesToLink.find((mf) => mf.name === currentMicrofrontend.name)?.status === "inactive";
 
   const handleFieldChange = (key: Omit<keyof MicroserviceDTO, "styles">) => (value: string) => {
     switch (key) {
@@ -41,20 +42,38 @@ const MicrofrontendLinkingControl = ({
     <Grid container spacing={1}>
       <Grid item>
         <Typography>Доступные микросервисы</Typography>
-        <Select value={currentMicrofrontend.name} onChange={(ev) => handleFieldChange("name")(ev.target.value)} disabled={targetMicroserviceDisabled}> 
-          {availableMicroservicesToLink.map((mf) => (<MenuItem key={mf.name} value={mf.name}>{mf.name}</MenuItem>))}
+        <Select
+          value={currentMicrofrontend.name}
+          onChange={(ev) => handleFieldChange("name")(ev.target.value)}
+          disabled={targetMicroserviceDisabled}
+        >
+          {availableMicroservicesToLink.map((mf) => (
+            <MenuItem key={mf.name} value={mf.name}>
+              {mf.name}
+            </MenuItem>
+          ))}
         </Select>
       </Grid>
       <Grid item>
         <Typography>URL для подгрузки микрофронтенда</Typography>
-        <Input value={currentMicrofrontend.src} onChange={(ev) => handleFieldChange("src")(ev.target.value)} disabled={targetMicroserviceDisabled} />
+        <Input
+          value={currentMicrofrontend.src}
+          onChange={(ev) => handleFieldChange("src")(ev.target.value)}
+          disabled={targetMicroserviceDisabled}
+        />
       </Grid>
       <Grid item>
         <Typography>Путь в браузере, по которому микрофронтенд будет доступен</Typography>
-        <Input value={currentMicrofrontend.route} onChange={(ev) => handleFieldChange("route")(ev.target.value)} disabled={targetMicroserviceDisabled} />
+        <Input
+          value={currentMicrofrontend.route}
+          onChange={(ev) => handleFieldChange("route")(ev.target.value)}
+          disabled={targetMicroserviceDisabled}
+        />
       </Grid>
       <Grid item>
-        <Button variant="contained" onClick={onDelete}>Удалить бинд</Button>
+        <Button variant='contained' onClick={onDelete}>
+          Удалить бинд
+        </Button>
       </Grid>
     </Grid>
   );

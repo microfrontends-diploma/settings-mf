@@ -9,7 +9,7 @@ const lifecycles = singleSpaReact({
   ReactDOM,
   rootComponent: (props) => (
     <ApiProvider>
-      <Settings/>
+      <Settings />
     </ApiProvider>
   ),
   errorBoundary(err, info, props) {
