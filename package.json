@@ -1,7 +1,7 @@
 {
   "name": "@andy-inc/settings-mf",
   "scripts": {
-    "start": "webpack serve --port 8504",
+    "start": "webpack serve --port 8504 --env isLocal",
     "start:standalone": "webpack serve --env standalone",
     "build": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",

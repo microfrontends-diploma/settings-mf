@@ -10,7 +10,6 @@ export interface ExtendedAxiosConfig extends AxiosRequestConfig {
 export class NetworkService {
   protected networkModule: AxiosInstance = null;
 
-  // TODO: нужно ли делать так, чтобы сюда можно было передать любой модуль взаимодействия с сетью а не только axios?
   constructor(networkModule: AxiosInstance) {
     this.networkModule = networkModule;
   }

@@ -1,11 +1,11 @@
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useApi } from "./context";
 import { AvailableMicroserviceDTO, MicroserviceDTO } from "./api/dto";
 import { MicrofrontendLinkingControl } from "./components";
 import { isEqual, sortBy } from "lodash";
+import AddIcon from '@mui/icons-material/Add';
 
-// TODO: навести красоту
 const Settings = () => {
   const api = useApi();
 
@@ -58,10 +58,8 @@ const Settings = () => {
 
     Promise.all([delinkPromises, linkPromises])
       .then(() => {
-        // TODO: мб не перезагружать страницу и послать запрос через шину событий, чтобы заново подтянулись все динамические микрофронты?
         location.reload();
         getBindingData();
-        // TODO: при ошибке делать что ??
       })
       .catch((e) => console.error(`error occured! ${e}`));
   };
@@ -103,16 +101,16 @@ const Settings = () => {
         return (
           <Grid item xs={12}>
             {!availableMicroservices.length ? (
-              <Typography>Нет активных микросервисов, к которым можно было бы осуществить биндинг</Typography>
+              <Typography variant="h6">Нет активных микросервисов, к которым можно было бы осуществить биндинг!</Typography>
             ) : (
-              <Typography>В данный момент не создано ни одного бинда микрофронтенда к микросервису</Typography>
+              <Typography variant="h6">В данный момент не создано ни одного бинда микрофронтенда к микросервису!</Typography>
             )}
           </Grid>
         );
       } else {
         return (
           <Grid item xs={12}>
-            <Typography>Вы удалили все бинды...</Typography>
+            <Typography variant="h6">Вы удалили все бинды...</Typography>
           </Grid>
         );
       }
@@ -129,8 +127,9 @@ const Settings = () => {
             );
 
             return (
-              <Grid key={index} item>
+              <Grid key={index} item xs={4}>
                 <MicrofrontendLinkingControl
+                  index={index + 1}
                   availableMicroservicesToLink={availableMicroservicesToLink}
                   currentMicrofrontend={linkedMf}
                   onChange={(value) => handleOnLinkingChange("change")(value, index)}
@@ -159,20 +158,30 @@ const Settings = () => {
 
         <Grid item container spacing={1}>
           {renderContent()}
-          <Grid item xs={12}>
-            <Button fullWidth disabled={addLinkingButtonDisabled} onClick={() => handleOnLinkingChange("add")()}>
-              Добавить бинд
-            </Button>
+          <Grid item xs={linkedMicrofronteds.length > 0 ? 4 : 12} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}> 
+            {linkedMicrofronteds.length > 0 ? (
+              <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Tooltip title={<Typography>Добавить бинд</Typography>} placement="top">
+                  <IconButton color='primary' disabled={addLinkingButtonDisabled} onClick={() => handleOnLinkingChange("add")()}>
+                    <AddIcon sx={{fontSize: '100px'}}/>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            ) : (
+              <Button fullWidth variant="contained" disabled={addLinkingButtonDisabled} onClick={() => handleOnLinkingChange("add")()}>
+                Создать бинд
+              </Button> 
+            )}
           </Grid>
           <Grid item xs={12}>
-            <Button color='error' fullWidth disabled={linkedMicrofronteds.length === 0} onClick={() => handleOnLinkingChange("delete")()}>
+            <Button fullWidth variant="contained" color='error' disabled={linkedMicrofronteds.length === 0} onClick={() => handleOnLinkingChange("delete")()}>
               Удалить все бинды
             </Button>
           </Grid>
         </Grid>
 
         <Grid item>
-          <Button disabled={saveButtonDisabled} onClick={handleSave}>
+          <Button variant="contained" disabled={saveButtonDisabled} onClick={handleSave}>
             Сохранить
           </Button>
         </Grid>

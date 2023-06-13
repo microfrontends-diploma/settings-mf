@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext } from "react";
-import { Api } from "../api";
+import { Api } from "../../api";
 
 export const api = new Api();
 const apiContext = createContext(api);
