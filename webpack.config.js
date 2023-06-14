@@ -17,6 +17,7 @@ module.exports = (webpackConfigEnv, argv) => {
       new webpack.DefinePlugin({
         API_URL: isLocal ? JSON.stringify('http://localhost') : JSON.stringify('http://94.250.250.29')
       })
-    ]
+    ],
+    externals: ["@mui/icons-material", "@mui/material", "axios", "lodash", "single-spa-react"]
   });
 };
